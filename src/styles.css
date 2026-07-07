@@ -261,9 +261,18 @@
 }
 
 .gdr-result {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   margin: 0;
   font-size: 0.875rem;
   font-weight: 600;
+}
+
+.gdr-result-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #15803d;
 }
 
 /* Keyframes */

@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { PluginContext } from './types';
 
+// Resolve bundled assets against this module's URL so they load from wherever
+// the bundle is served (jsDelivr dist/ in production, public/plugins/ in dev).
+const checkIconUrl = new URL('./assets/check.svg', import.meta.url).href;
+
 const G = 9.8; // m/s^2
 const DROP_METERS = 24; // fall height represented by the scene
 const FEATHER_TERMINAL = 4.5; // feather terminal velocity in air (m/s)
@@ -324,7 +328,11 @@ export default function GalileoDrop({ context }: Props) {
 
         {submitted && score !== null ? (
           <p className="gdr-result">
-            You scored {score} out of {questions.length}.
+            <img className="gdr-result-icon" src={checkIconUrl} alt="" />
+
+            <span>
+              You scored {score} out of {questions.length}.
+            </span>
           </p>
         ) : null}
       </div>
