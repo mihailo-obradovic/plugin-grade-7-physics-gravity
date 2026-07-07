@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  color: var(--color-foreground, #111827);
+  color: var(--color-foreground, #221812);
   font-family: var(--font-geist-sans, system-ui, sans-serif);
 }
 
 .gdr-intro {
   margin: 0;
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--color-muted-foreground, #6b5a4d);
 }
 
 /* Medium toggle */
@@ -28,17 +28,17 @@
   font-size: 0.875rem;
   line-height: 1;
   padding: 0.5rem 1rem;
-  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+  transition: border-color 250ms ease, background-color 250ms ease, color 250ms ease;
 }
 
 .gdr-toggle:hover {
-  border-color: var(--color-brand, #2563eb);
+  border-color: var(--color-primary, #f7ac4d);
 }
 
 .gdr-toggle[data-active='true'] {
-  background: var(--color-brand, #2563eb);
-  border-color: var(--color-brand, #2563eb);
-  color: #fff;
+  background: var(--color-primary, #f7ac4d);
+  border-color: var(--color-primary, #f7ac4d);
+  color: var(--color-primary-foreground, #221812);
 }
 
 /* Scene */
@@ -47,7 +47,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   padding: 1rem;
-  border-radius: 0.75rem;
+  border-radius: var(--radius, 0.75rem);
   border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
   transition: background 300ms ease;
@@ -129,7 +129,7 @@
   height: 8px;
   margin-left: -4px;
   border-radius: 9999px;
-  border: 2px solid var(--color-brand, #2563eb);
+  border: 2px solid var(--color-primary, #f7ac4d);
   animation: gdr-ring 500ms ease-out forwards;
 }
 
@@ -148,7 +148,7 @@
 }
 
 .gdr-outcome {
-  color: var(--color-muted-foreground, #6b7280);
+  color: var(--color-muted-foreground, #6b5a4d);
 }
 
 /* Actions */
@@ -160,9 +160,9 @@
 
 .gdr-primary {
   border: 0;
-  border-radius: 0.5rem;
-  background: var(--color-brand, #2563eb);
-  color: #fff;
+  border-radius: calc(var(--radius, 0.75rem) * 0.8);
+  background: var(--color-primary, #f7ac4d);
+  color: var(--color-primary-foreground, #221812);
   cursor: pointer;
   font: inherit;
   font-size: 0.875rem;
@@ -177,7 +177,7 @@
 
 .gdr-secondary {
   border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-  border-radius: 0.5rem;
+  border-radius: calc(var(--radius, 0.75rem) * 0.8);
   background: transparent;
   color: inherit;
   cursor: pointer;
@@ -235,17 +235,17 @@
   font-size: 0.875rem;
   line-height: 1;
   padding: 0.5rem 0.875rem;
-  transition: border-color 120ms ease, background-color 120ms ease, color 120ms ease;
+  transition: border-color 250ms ease, background-color 250ms ease, color 250ms ease;
 }
 
 .gdr-option:hover {
-  border-color: var(--color-brand, #2563eb);
+  border-color: var(--color-primary, #f7ac4d);
 }
 
 .gdr-option[data-selected='true'] {
-  background: var(--color-brand, #2563eb);
-  border-color: var(--color-brand, #2563eb);
-  color: #fff;
+  background: var(--color-primary, #f7ac4d);
+  border-color: var(--color-primary, #f7ac4d);
+  color: var(--color-primary-foreground, #221812);
 }
 
 .gdr-option[data-correct='true'] {
