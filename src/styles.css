@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 1.25rem;
   color: var(--color-foreground, #221812);
-  font-family: var(--font-geist-sans, system-ui, sans-serif);
+  font-family: var(--font-sans, system-ui, sans-serif);
 }
 
 .gdr-intro {
@@ -50,7 +50,7 @@
   border-radius: var(--radius, 0.75rem);
   border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
   background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
-  transition: background 300ms ease;
+  transition: background 250ms ease;
 }
 
 .gdr-scene[data-medium='vacuum'] {
