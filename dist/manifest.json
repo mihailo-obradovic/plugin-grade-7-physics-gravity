@@ -1,0 +1,11 @@
+{
+  "id": "grade-7.physics.gravity",
+  "version": "1.0.3",
+  "capabilities": [
+    "quiz",
+    "progress"
+  ],
+  "entry": "./index.js",
+  "styles": "./styles.css",
+  "minPlatformVersion": "0.1.0"
+}
