@@ -1,0 +1,24 @@
+{
+  "id": "grade-7.physics.gravity",
+  "version": "1.0.4",
+  "capabilities": [
+    "quiz",
+    "progress"
+  ],
+  "entry": "./index.js",
+  "styles": "./styles.css",
+  "minPlatformVersion": "0.3.0",
+  "i18n": {
+    "defaultLocale": "sr-latn",
+    "locales": [
+      "en",
+      "sr-latn",
+      "sr-cyrl"
+    ],
+    "messages": {
+      "en": "./messages/en.json",
+      "sr-latn": "./messages/sr-latn.json",
+      "sr-cyrl": "./messages/sr-cyrl.json"
+    }
+  }
+}
