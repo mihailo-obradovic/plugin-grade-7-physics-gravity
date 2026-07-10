@@ -1,4 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+
+import { exerciseContent } from './content';
+import {
+  usePluginLocale,
+  usePluginTranslations
+} from './i18n/usePluginTranslations';
 
 import type { PluginContext } from './types';
 
@@ -15,34 +21,6 @@ const FEATHER_AIR_TIME = DROP_METERS / FEATHER_TERMINAL; // ~5.33 s
 
 type Medium = 'air' | 'vacuum';
 type Phase = 'idle' | 'dropping' | 'landed';
-
-type Question = {
-  id: string;
-  prompt: string;
-  options: string[];
-  answer: string;
-};
-
-const questions: Question[] = [
-  {
-    id: 'vacuum-first',
-    prompt: 'In a vacuum, which object lands first?',
-    options: ['The feather', 'The hammer', 'They land together'],
-    answer: 'They land together'
-  },
-  {
-    id: 'air-first',
-    prompt: 'In ordinary air, which object lands first?',
-    options: ['The feather', 'The hammer', 'They land together'],
-    answer: 'The hammer'
-  },
-  {
-    id: 'fall-time',
-    prompt: 'About how long to fall 24 m in a vacuum? (t = √(2h ÷ g))',
-    options: ['1.1 s', '2.2 s', '4.4 s'],
-    answer: '2.2 s'
-  }
-];
 
 function fallFraction(elapsed: number, velocityCapped: boolean): number {
   const distance = velocityCapped
@@ -69,6 +47,12 @@ type Props = {
 
 export default function GalileoDrop({ context }: Props) {
   const rafRef = useRef<number | null>(null);
+  const locale = usePluginLocale(context.i18n);
+  const t = usePluginTranslations(context.i18n);
+  const questions = useMemo(
+    () => exerciseContent[locale].questions,
+    [locale]
+  );
 
   const [medium, setMedium] = useState<Medium>('air');
   const [phase, setPhase] = useState<Phase>('idle');
@@ -81,6 +65,12 @@ export default function GalileoDrop({ context }: Props) {
   );
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState<number | null>(null);
+
+  useEffect(() => {
+    setAnswers(Object.fromEntries(questions.map((question) => [question.id, null])));
+    setSubmitted(false);
+    setScore(null);
+  }, [questions]);
 
   const answeredCount = questions.filter(
     (question) => answers[question.id] !== null
@@ -114,13 +104,13 @@ export default function GalileoDrop({ context }: Props) {
     const startedAt = performance.now();
 
     function step(now: number) {
-      const t = (now - startedAt) / 1000;
+      const current = (now - startedAt) / 1000;
 
-      setElapsed(Math.min(t, totalTime));
-      setFeatherFrac(fallFraction(t, featherCapped));
-      setHammerFrac(fallFraction(t, false));
+      setElapsed(Math.min(current, totalTime));
+      setFeatherFrac(fallFraction(current, featherCapped));
+      setHammerFrac(fallFraction(current, false));
 
-      if (t < totalTime) {
+      if (current < totalTime) {
         rafRef.current = requestAnimationFrame(step);
         return;
       }
@@ -181,12 +171,9 @@ export default function GalileoDrop({ context }: Props) {
 
   return (
     <div className="gdr-root">
-      <p className="gdr-intro">
-        Drop a feather and a hammer at the same time. Switch between air and a
-        vacuum and watch what gravity does.
-      </p>
+      <p className="gdr-intro">{t('intro')}</p>
 
-      <div className="gdr-controls" role="group" aria-label="Medium">
+      <div className="gdr-controls" role="group" aria-label={t('mediumAria')}>
         <button
           type="button"
           className="gdr-toggle"
@@ -194,7 +181,7 @@ export default function GalileoDrop({ context }: Props) {
           aria-pressed={medium === 'air'}
           onClick={() => handleSelectMedium('air')}
         >
-          Air
+          {t('air')}
         </button>
 
         <button
@@ -204,13 +191,13 @@ export default function GalileoDrop({ context }: Props) {
           aria-pressed={medium === 'vacuum'}
           onClick={() => handleSelectMedium('vacuum')}
         >
-          Vacuum
+          {t('vacuum')}
         </button>
       </div>
 
       <div className="gdr-scene" data-medium={medium}>
         <div className="gdr-lane">
-          <span className="gdr-lane-label">Feather</span>
+          <span className="gdr-lane-label">{t('feather')}</span>
 
           <div
             className="gdr-faller gdr-feather"
@@ -226,7 +213,7 @@ export default function GalileoDrop({ context }: Props) {
         </div>
 
         <div className="gdr-lane">
-          <span className="gdr-lane-label">Hammer</span>
+          <span className="gdr-lane-label">{t('hammer')}</span>
 
           <div
             className="gdr-faller gdr-hammer"
@@ -242,13 +229,18 @@ export default function GalileoDrop({ context }: Props) {
       </div>
 
       <div className="gdr-readout" aria-live="polite">
-        <span className="gdr-timer">t = {elapsed.toFixed(2)} s</span>
+        <span className="gdr-timer">
+          {t('timer', { time: elapsed.toFixed(2) })}
+        </span>
 
         {phase === 'landed' ? (
           <span className="gdr-outcome">
             {medium === 'vacuum'
-              ? 'Both landed together!'
-              : `Hammer: ${hammerTime.toFixed(2)} s · Feather: ${featherTime.toFixed(2)} s`}
+              ? t('outcomeVacuum')
+              : t('outcomeAir', {
+                  hammerTime: hammerTime.toFixed(2),
+                  featherTime: featherTime.toFixed(2)
+                })}
           </span>
         ) : null}
       </div>
@@ -260,7 +252,7 @@ export default function GalileoDrop({ context }: Props) {
           disabled={phase === 'dropping'}
           onClick={handleDrop}
         >
-          Drop &amp; check
+          {t('dropAndCheck')}
         </button>
 
         <button
@@ -269,12 +261,12 @@ export default function GalileoDrop({ context }: Props) {
           disabled={phase === 'idle'}
           onClick={handleReset}
         >
-          Reset
+          {t('reset')}
         </button>
       </div>
 
       <div className="gdr-quiz">
-        <h3 className="gdr-quiz-title">Check your understanding</h3>
+        <h3 className="gdr-quiz-title">{t('quizTitle')}</h3>
 
         {questions.map((question) => (
           <section
@@ -316,12 +308,15 @@ export default function GalileoDrop({ context }: Props) {
             disabled={!allAnswered || submitted}
             onClick={handleCheck}
           >
-            Check answers
+            {t('checkAnswers')}
           </button>
 
           {!allAnswered && !submitted ? (
             <p className="gdr-intro">
-              {answeredCount}/{questions.length} answered
+              {t('progress', {
+                answered: answeredCount,
+                total: questions.length
+              })}
             </p>
           ) : null}
         </div>
@@ -331,7 +326,7 @@ export default function GalileoDrop({ context }: Props) {
             <img className="gdr-result-icon" src={checkIconUrl} alt="" />
 
             <span>
-              You scored {score} out of {questions.length}.
+              {t('result', { score, total: questions.length })}
             </span>
           </p>
         ) : null}

@@ -45,6 +45,9 @@ jobs:
       - run: pnpm install --no-frozen-lockfile
 
       # --- checks upon upload ---
+      - name: Test
+        run: pnpm test
+
       - name: Type-check
         run: pnpm typecheck
 

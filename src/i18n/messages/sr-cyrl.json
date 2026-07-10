@@ -1,0 +1,17 @@
+{
+  "intro": "Пусти перје и чекић у исто вријеме. Пребацуј се између ваздуха и вакуума и посматрај шта гравитација ради.",
+  "mediumAria": "Средина",
+  "air": "Ваздух",
+  "vacuum": "Вакуум",
+  "feather": "Перје",
+  "hammer": "Чекић",
+  "dropAndCheck": "Пусти и провјери",
+  "reset": "Ресетуј",
+  "timer": "t = {time} s",
+  "outcomeVacuum": "Оба су пала заједно!",
+  "outcomeAir": "Чекић: {hammerTime} s · Перје: {featherTime} s",
+  "quizTitle": "Провјери разумијевање",
+  "checkAnswers": "Провјери одговоре",
+  "progress": "{answered}/{total} одговорено",
+  "result": "Освојио/ла си {score} од {total}."
+}

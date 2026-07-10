@@ -1,0 +1,17 @@
+{
+  "intro": "Pusti perje i čekić u isto vrijeme. Prebacuj se između zraka i vakuuma i posmatraj šta gravitacija radi.",
+  "mediumAria": "Sredina",
+  "air": "Zrak",
+  "vacuum": "Vakuum",
+  "feather": "Perje",
+  "hammer": "Čekić",
+  "dropAndCheck": "Pusti i provjeri",
+  "reset": "Resetuj",
+  "timer": "t = {time} s",
+  "outcomeVacuum": "Oba su pala zajedno!",
+  "outcomeAir": "Čekić: {hammerTime} s · Perje: {featherTime} s",
+  "quizTitle": "Provjeri razumijevanje",
+  "checkAnswers": "Provjeri odgovore",
+  "progress": "{answered}/{total} odgovoreno",
+  "result": "Osvojio/la si {score} od {total}."
+}

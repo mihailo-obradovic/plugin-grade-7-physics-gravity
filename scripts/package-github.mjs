@@ -48,6 +48,11 @@ await copyIfExists(
 
 await copyIfExists(path.join(repoRoot, 'assets'), path.join(distDir, 'assets'));
 
+await copyIfExists(
+  path.join(repoRoot, 'src/i18n/messages'),
+  path.join(distDir, 'messages')
+);
+
 console.info(
   `Packaged ${hasBundle ? 'plugin' : 'iframe plugin'} into ${distDir}`
 );

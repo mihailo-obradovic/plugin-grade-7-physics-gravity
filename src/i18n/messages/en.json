@@ -1,0 +1,17 @@
+{
+  "intro": "Drop a feather and a hammer at the same time. Switch between air and a vacuum and watch what gravity does.",
+  "mediumAria": "Medium",
+  "air": "Air",
+  "vacuum": "Vacuum",
+  "feather": "Feather",
+  "hammer": "Hammer",
+  "dropAndCheck": "Drop & check",
+  "reset": "Reset",
+  "timer": "t = {time} s",
+  "outcomeVacuum": "Both landed together!",
+  "outcomeAir": "Hammer: {hammerTime} s · Feather: {featherTime} s",
+  "quizTitle": "Check your understanding",
+  "checkAnswers": "Check answers",
+  "progress": "{answered}/{total} answered",
+  "result": "You scored {score} out of {total}."
+}
