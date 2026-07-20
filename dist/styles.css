@@ -1,0 +1,318 @@
+.gdr-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: var(--color-foreground, #24356b);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.gdr-intro {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground, #576283);
+}
+
+/* Medium toggle */
+.gdr-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.gdr-toggle {
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 9999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0.5rem 1rem;
+  transition: border-color 250ms ease, background-color 250ms ease, color 250ms ease;
+}
+
+.gdr-toggle:hover {
+  border-color: var(--color-primary, #ffc93f);
+}
+
+.gdr-toggle[data-active='true'] {
+  background: var(--color-primary, #ffc93f);
+  border-color: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
+}
+
+/* Scene */
+.gdr-scene {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius, 0.75rem);
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: linear-gradient(180deg, #dbeafe 0%, #eff6ff 100%);
+  transition: background 250ms ease;
+}
+
+.gdr-scene[data-medium='vacuum'] {
+  background:
+    radial-gradient(1.5px 1.5px at 20% 25%, rgba(255, 255, 255, 0.8) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 65% 15%, rgba(255, 255, 255, 0.7) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(255, 255, 255, 0.6) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 35% 70%, rgba(255, 255, 255, 0.7) 50%, transparent 51%),
+    linear-gradient(180deg, #0b1220 0%, #111827 100%);
+  color: #e5e7eb;
+}
+
+.gdr-lane {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.gdr-lane-label {
+  position: absolute;
+  top: 0.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+.gdr-faller {
+  position: absolute;
+  left: 50%;
+  margin-left: -22px;
+  top: calc(1.75rem + var(--fall, 0) * (300px - 1.75rem - 44px));
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  line-height: 1;
+  will-change: top, transform;
+}
+
+/* Feather drifts and rotates gently while falling through air */
+.gdr-feather[data-medium='air'][data-dropping='true'] {
+  animation: gdr-sway 1.6s ease-in-out infinite;
+}
+
+/* Hammer keeps a slight forward tilt as it plummets */
+.gdr-hammer[data-dropping='true'] {
+  transform: rotate(12deg);
+}
+
+/* Landing pulse */
+.gdr-faller[data-landed='true'] {
+  animation: gdr-land 320ms ease-out;
+}
+
+.gdr-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 4px;
+}
+
+.gdr-ground[data-hit='true']::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 9999px;
+  border: 2px solid var(--color-primary, #ffc93f);
+  animation: gdr-ring 500ms ease-out forwards;
+}
+
+/* Readout */
+.gdr-readout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.gdr-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.gdr-outcome {
+  color: var(--color-muted-foreground, #576283);
+}
+
+/* Actions */
+.gdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gdr-primary {
+  border: 0;
+  border-radius: calc(var(--radius, 0.75rem) * 0.8);
+  background: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+}
+
+.gdr-primary:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.gdr-secondary {
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: calc(var(--radius, 0.75rem) * 0.8);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+}
+
+.gdr-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Quiz */
+.gdr-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.gdr-quiz-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.gdr-question {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gdr-question-title {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.gdr-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.gdr-option {
+  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  border-radius: 9999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1;
+  padding: 0.5rem 0.875rem;
+  transition: border-color 250ms ease, background-color 250ms ease, color 250ms ease;
+}
+
+.gdr-option:hover {
+  border-color: var(--color-primary, #ffc93f);
+}
+
+.gdr-option[data-selected='true'] {
+  background: var(--color-primary, #ffc93f);
+  border-color: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
+}
+
+.gdr-option[data-correct='true'] {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+}
+
+.gdr-option[data-wrong='true'] {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
+
+.gdr-result {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.gdr-result-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #15803d;
+}
+
+/* Keyframes */
+@keyframes gdr-sway {
+  0%,
+  100% {
+    transform: translateX(-8px) rotate(-12deg);
+  }
+  50% {
+    transform: translateX(8px) rotate(12deg);
+  }
+}
+
+@keyframes gdr-land {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.25, 0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes gdr-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gdr-feather[data-medium='air'][data-dropping='true'],
+  .gdr-faller[data-landed='true'],
+  .gdr-ground[data-hit='true']::after {
+    animation: none;
+  }
+}
