@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  color: var(--color-foreground, #221812);
+  color: var(--color-foreground, #24356b);
   font-family: var(--font-sans, system-ui, sans-serif);
 }
 
 .gdr-intro {
   margin: 0;
   font-size: 0.875rem;
-  color: var(--color-muted-foreground, #6b5a4d);
+  color: var(--color-muted-foreground, #576283);
 }
 
 /* Medium toggle */
@@ -32,13 +32,13 @@
 }
 
 .gdr-toggle:hover {
-  border-color: var(--color-primary, #f7ac4d);
+  border-color: var(--color-primary, #ffc93f);
 }
 
 .gdr-toggle[data-active='true'] {
-  background: var(--color-primary, #f7ac4d);
-  border-color: var(--color-primary, #f7ac4d);
-  color: var(--color-primary-foreground, #221812);
+  background: var(--color-primary, #ffc93f);
+  border-color: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
 }
 
 /* Scene */
@@ -129,7 +129,7 @@
   height: 8px;
   margin-left: -4px;
   border-radius: 9999px;
-  border: 2px solid var(--color-primary, #f7ac4d);
+  border: 2px solid var(--color-primary, #ffc93f);
   animation: gdr-ring 500ms ease-out forwards;
 }
 
@@ -148,7 +148,7 @@
 }
 
 .gdr-outcome {
-  color: var(--color-muted-foreground, #6b5a4d);
+  color: var(--color-muted-foreground, #576283);
 }
 
 /* Actions */
@@ -161,8 +161,8 @@
 .gdr-primary {
   border: 0;
   border-radius: calc(var(--radius, 0.75rem) * 0.8);
-  background: var(--color-primary, #f7ac4d);
-  color: var(--color-primary-foreground, #221812);
+  background: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
   cursor: pointer;
   font: inherit;
   font-size: 0.875rem;
@@ -239,13 +239,13 @@
 }
 
 .gdr-option:hover {
-  border-color: var(--color-primary, #f7ac4d);
+  border-color: var(--color-primary, #ffc93f);
 }
 
 .gdr-option[data-selected='true'] {
-  background: var(--color-primary, #f7ac4d);
-  border-color: var(--color-primary, #f7ac4d);
-  color: var(--color-primary-foreground, #221812);
+  background: var(--color-primary, #ffc93f);
+  border-color: var(--color-primary, #ffc93f);
+  color: var(--color-primary-foreground, #24356b);
 }
 
 .gdr-option[data-correct='true'] {
